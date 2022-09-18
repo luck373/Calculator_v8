@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>時間計算</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap');
+
+    body {
+        background-color: #444444;
+        color: white;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        margin: 20px;
+        color: #f5ed00;
+    }
+
+    h1 {
+        font-weight: normal;
+        font-size: 100px;
+        margin: 70px 0 0 0;
+    }
+
+    h2 {
+        font-weight: normal;
+        font-size: 50px;
+    }
+
+    .calculator {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 250px 250px 250px;
+        grid-template-rows: 270px;
+        margin: 0;
+    }
+
+    .calculator div {
+        background-color: #f5ed00;
+        color: #444444;
+        padding: 20px;
+    }
+
+    .time-unit {
+        font-size: 30px;
+    }
+
+    input {
+        width: 120px;
+        font-size: 70px;
+        color: #444444;
+        background-color: #f5ed00;
+        font-family: 'Plus Jakarta Sans', 'sans-serif';
+        border-radius: 0;
+        border: none;
+        border-bottom: 3px solid #444444;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    input:hover {
+        border-color: #999999;
+    }
+
+    #fixed {
+        background-color: #444444;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 400px;
+        border: 3px solid #f5ed00;
+    }
+
+    #equal_btn {
+        border: none;
+    }
+
+    #pre_output {
+        font-size: 25px;
+    }
+
+    #output {
+        font-size: 50px;
+    }
+</style>
+
+<body>
+    <h1>Calculator</h1>
+    <p>Version 8</p>
+    <h2>First step</h2>
+    <div class="calculator">
+        <div>
+            <p class="time-unit">Hour</p>
+            <input type='number' id="first_hour">
+        </div>
+        <div>
+            <p class="time-unit">Minute</p>
+            <input type='number' id="first_min">
+        </div>
+        <div>
+            <p class="time-unit">Second</p>
+            <input type='number' id="first_second">
+        </div>
+    </div>
+    <h2>Second step</h2>
+    <div class="calculator">
+        <div>
+            <p class="time-unit">Hour</p>
+            <input type='number' id='second_hour'>
+        </div>
+        <div>
+            <p class='time-unit'>Minute</p>
+            <input type='number' id="second_min">
+        </div>
+        <div>
+            <p class='time-unit'>Second</p>
+            <input type='number' id='second_second'>
+        </div>
+    </div>
+    <div id="fixed">
+        <h2>output</h2>
+        <input id='equal_btn' type="button" value="=" onclick="push_button();" />
+        <div id="pre_output"></div>
+        <div id="output"></div>
+    </div>
+</body>
+<script>
+    function push_button() {
+        console.log("最初");
+        const first_hour = document.getElementById("first_hour").value;
+        const first_min = document.getElementById("first_min").value;
+        const first_second = document.getElementById("first_second").value;
+        const first = Number(first_hour) * 60 * 60 + Number(first_min) * 60 + Number(first_second);
+        const second_hour = document.getElementById('second_hour').value;
+        const second_min = document.getElementById('second_min').value;
+        const second_second = document.getElementById('second_second').value;
+        const second = Number(second_hour) * 60 * 60 + Number(second_min) * 60 + Number(second_second);
+        const output = first - second;
+        document.getElementById("pre_output").innerHTML = first + " - " + second + " = " + output;
+        const output_hour = Math.floor(output / 60 / 60);
+        const output_min = Math.floor((output % 3600) / 60);
+        const output_second = (output % 60) % 60;
+        document.getElementById("output").innerHTML = output_hour + ";" + output_min + ";" + output_second + ";00";
+        console.log("最後");
+    };
+    window.onload = push_button();
+    copyTarget.select();
+    document.execCommand("Copy");
+</script>
+
+</html>
